@@ -53,8 +53,8 @@ const showToast = (text) => {
     toastElement.show();
     setTimeout(() => toastElement.hide(), 3000); // Hide toast after 3 seconds
 };
-
-// Post data to the server and handle response
+document.getElementById('draft-email').disabled = true; // Disable button initially
+// Function to handle postData and show response
 const postData = async (input) => {
     try {
         const responseDisplay = document.getElementById('responseDisplay');
@@ -109,8 +109,11 @@ const postData = async (input) => {
             // Display the result in responseDisplay
             showMessage(data.choices[0].message.content, false);
 
-            // Show the draft email button after the response is generated
-            document.getElementById('draft-email').classList.remove('d-none');
+            // Show and enable the draft email button after the response is generated
+            const draftEmailButton = document.getElementById('draft-email');
+            draftEmailButton.classList.remove('d-none');  // Show the button
+            draftEmailButton.disabled = false;           // Enable the button
+
         } else {
             showMessage(data.error.message || 'Error fetching response.', true);
         }
